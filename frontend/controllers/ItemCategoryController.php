@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\ItemCategory;
-use frontend\models\ItemCategorySearch;
+use common\models\ItemCategory;
+use common\models\ItemCategorySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

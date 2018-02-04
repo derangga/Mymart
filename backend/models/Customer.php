@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use Yii;
-
+use common\models\User;
 /**
  * This is the model class for table "customer".
  *
@@ -32,9 +32,7 @@ class Customer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'trim'],
             [['user_id'], 'required'],
-            ['user_id', 'unique', 'targetClass' => '\backend\models\Customer', 'message' => 'This user id is been used.'],
             [['user_id'], 'integer'],
             [['nama', 'email'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],

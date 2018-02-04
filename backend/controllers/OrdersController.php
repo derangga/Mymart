@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\ItemCategory;
-use common\models\ItemCategorySearch;
+use backend\models\Orders;
+use backend\models\OrdersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ItemCategoryController implements the CRUD actions for ItemCategory model.
+ * OrdersController implements the CRUD actions for Orders model.
  */
-class ItemCategoryController extends Controller
+class OrdersController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class ItemCategoryController extends Controller
     }
 
     /**
-     * Lists all ItemCategory models.
+     * Lists all Orders models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ItemCategorySearch();
+        $searchModel = new OrdersSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class ItemCategoryController extends Controller
     }
 
     /**
-     * Displays a single ItemCategory model.
+     * Displays a single Orders model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class ItemCategoryController extends Controller
     }
 
     /**
-     * Creates a new ItemCategory model.
+     * Creates a new Orders model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new ItemCategory();
+        $model = new Orders();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class ItemCategoryController extends Controller
     }
 
     /**
-     * Updates an existing ItemCategory model.
+     * Updates an existing Orders model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class ItemCategoryController extends Controller
     }
 
     /**
-     * Deletes an existing ItemCategory model.
+     * Deletes an existing Orders model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class ItemCategoryController extends Controller
     }
 
     /**
-     * Finds the ItemCategory model based on its primary key value.
+     * Finds the Orders model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return ItemCategory the loaded model
+     * @return Orders the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ItemCategory::findOne($id)) !== null) {
+        if (($model = Orders::findOne($id)) !== null) {
             return $model;
         }
 

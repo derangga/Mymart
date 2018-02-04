@@ -3,8 +3,8 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Item;
-use frontend\models\ItemSearch;
+use common\models\Item;
+use common\models\ItemSearch;
 use common\models\Statistic;
 
 use yii\web\Controller;

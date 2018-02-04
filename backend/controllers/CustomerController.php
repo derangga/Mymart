@@ -2,6 +2,8 @@
 
 namespace backend\controllers;
 
+use backend\models\Orders;
+use common\models\User;
 use Yii;
 use backend\models\Customer;
 use backend\models\CustomerSearch;
@@ -44,6 +46,16 @@ class CustomerController extends Controller
         ]);
     }
 
+    //view Show Order
+    public function actionShowOrder(){
+        $order = Orders::find()->with('customer')->with('orderItems')->with('orderItems.item');
+        //print_r($order->all()); die();
+        return $this->render('show-order',[
+            'dataProvider' => $order,
+        ]);
+
+    }
+
     /**
      * Displays a single Customer model.
      * @param integer $id
@@ -64,8 +76,17 @@ class CustomerController extends Controller
      */
     public function actionCreate()
     {
+        $user_login = User::findOne(Yii::$app->user->id);
+        //print_r($user_login->customers); die();
+        if(count($user_login->customers) >= 1)
+        {
+            $model = null;
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
         $model = new Customer();
-
+        $model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -101,6 +122,9 @@ class CustomerController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
