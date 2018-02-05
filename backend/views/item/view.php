@@ -32,6 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'nama',
             'price',
             'category_id',
+            [
+                'label' => 'Item Image',
+                'format' => 'raw',
+                'value' => Html::img(Yii::$app->request->baseUrl.'/'.$model->image,['width'=>'300px']),
+            ]
         ],
     ]) ?>
 

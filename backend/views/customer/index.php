@@ -13,10 +13,15 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="customer-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php if($boolean == false): ?>
+    <h4> You only can create one customer </h4>
 
     <p>
-        <?= Html::a('Create Customer', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php
+        else:
+        echo Html::a('Create Customer', ['create'], ['class' => 'btn btn-success']);
+        endif;
+        ?>
     </p>
 
     <?= GridView::widget([

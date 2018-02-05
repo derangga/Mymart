@@ -14,14 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php if($model==null):  ?>
-    <h3>You can't add customer again</h3>
-
-    <?php
-        else: echo $this->render('_form', [
+    <?= $this->render('_form', [
         'model' => $model,
-    ]);
-        endif;
-        ?>
+    ]) ?>
 
 </div>

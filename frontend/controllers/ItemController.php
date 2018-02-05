@@ -41,7 +41,6 @@ class ItemController extends Controller
         Yii::$app->MyComponent->trigger(MyComponent::EVENT_TRIGGER);
         $searchModel = new ItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

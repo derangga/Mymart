@@ -8,6 +8,7 @@ use common\models\ItemSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ItemController implements the CRUD actions for Item model.
@@ -66,11 +67,7 @@ class ItemController extends Controller
     {
         $model = new Item();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //var_dump ($model->save()); die();
-            return $this->redirect(['view', 'id' => $model->id]);
-
-        }
+        $this->saveImage($model);
 
         return $this->render('create', [
             'model' => $model,
@@ -88,9 +85,7 @@ class ItemController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+        $this->saveImage($model);
 
         return $this->render('update', [
             'model' => $model,
@@ -103,6 +98,9 @@ class ItemController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionDelete($id)
     {
@@ -125,5 +123,28 @@ class ItemController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function saveImage(Item $item)
+    {
+        if ($item->load(Yii::$app->request->post()) && $item->save()) {
+            $item->upload = UploadedFile::getInstance($item, 'upload');
+            if($item->validate()){
+                if($item->upload){
+                    $path = 'upload/items/'.$item->upload->baseName."-".time().".".$item->upload->extension;
+                    //var_dump($item->upload->saveAs($path)); die();
+                    if($item->upload->saveAs($path))
+                    {
+                        $item->image = $path;
+                        //var_dump($item->image);
+                    }
+                }
+                if($item->save(false))
+                {
+                    return $this->redirect(['view', 'id' => $item->id]);
+                }
+            }
+
+        }
     }
 }

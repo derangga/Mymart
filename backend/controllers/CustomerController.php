@@ -40,9 +40,16 @@ class CustomerController extends Controller
         $searchModel = new CustomerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        $boolean = true;
+        $user_login = User::findOne(Yii::$app->user->id);
+        if(count($user_login->customers) >= 1)
+        {
+            $boolean = false;
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'boolean' => $boolean,
         ]);
     }
 
@@ -76,15 +83,7 @@ class CustomerController extends Controller
      */
     public function actionCreate()
     {
-        $user_login = User::findOne(Yii::$app->user->id);
-        //print_r($user_login->customers); die();
-        if(count($user_login->customers) >= 1)
-        {
-            $model = null;
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
+
         $model = new Customer();
         $model->user_id = Yii::$app->user->id;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
