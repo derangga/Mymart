@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 04, 2018 at 11:18 AM
+-- Generation Time: Feb 06, 2018 at 04:55 AM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.0.26
 
@@ -52,6 +52,7 @@ CREATE TABLE `item` (
   `id` int(11) NOT NULL,
   `nama` varchar(255) DEFAULT NULL,
   `price` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
   `category_id` int(11) NOT NULL,
   `created_at` int(11) DEFAULT NULL,
   `updated_at` int(11) DEFAULT NULL,
@@ -63,20 +64,20 @@ CREATE TABLE `item` (
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`id`, `nama`, `price`, `category_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
-(1, 'Citato', 7000, 1, NULL, NULL, NULL, NULL),
-(2, 'Rinso', 30000, 3, NULL, NULL, NULL, NULL),
-(3, 'Snack Ring', 8000, 1, NULL, NULL, NULL, NULL),
-(4, 'Teh Pucuk', 5000, 2, NULL, NULL, NULL, NULL),
-(5, 'Tissue Paseo', 15000, 5, NULL, NULL, NULL, NULL),
-(6, 'Sari Roti', 15000, 4, NULL, NULL, NULL, NULL),
-(7, 'Lux', 3500, 8, NULL, NULL, NULL, NULL),
-(8, 'Indomie Goreng', 2500, 7, NULL, NULL, NULL, NULL),
-(9, 'Indomie Goreng Jumbo', 3500, 7, NULL, NULL, NULL, NULL),
-(10, 'Pensil', 3000, 9, NULL, 1517666308, NULL, 1),
-(11, 'Banana', 15000, 2, NULL, NULL, NULL, NULL),
-(12, 'Chocochip', 8000, 1, NULL, NULL, NULL, NULL),
-(13, 'Taro', 8000, 1, 1517666115, 1517666115, 1, 1);
+INSERT INTO `item` (`id`, `nama`, `price`, `image`, `category_id`, `created_at`, `updated_at`, `created_by`, `updated_by`) VALUES
+(1, 'Citato', 7000, NULL, 1, NULL, NULL, NULL, NULL),
+(2, 'Rinso', 30000, NULL, 3, NULL, NULL, NULL, NULL),
+(3, 'Snack Ring', 8000, NULL, 1, NULL, NULL, NULL, NULL),
+(4, 'Teh Pucuk', 5000, NULL, 2, NULL, NULL, NULL, NULL),
+(5, 'Tissue Paseo', 15000, NULL, 5, NULL, NULL, NULL, NULL),
+(6, 'Sari Roti', 15000, NULL, 4, NULL, NULL, NULL, NULL),
+(7, 'Lux', 3500, NULL, 8, NULL, NULL, NULL, NULL),
+(8, 'Indomie Goreng', 2500, NULL, 7, NULL, NULL, NULL, NULL),
+(9, 'Indomie Goreng Jumbo', 3500, NULL, 7, NULL, NULL, NULL, NULL),
+(10, 'Pensil', 3000, NULL, 9, NULL, 1517666308, NULL, 1),
+(11, 'Banana', 15000, NULL, 2, NULL, NULL, NULL, NULL),
+(12, 'Chocochip', 8000, NULL, 1, NULL, NULL, NULL, NULL),
+(13, 'Taro', 8000, 'upload/items/taro-net-italian-pizza-1517889279.jpg', 1, 1517666115, 1517889279, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -215,7 +216,10 @@ INSERT INTO `statistic` (`id`, `access_time`, `user_ip`, `user_host`, `path_info
 (30, '2018-02-03 14:55:19', '127.0.0.1', 'http://localhost', 'item/index', ''),
 (31, '2018-02-03 14:58:28', '127.0.0.1', 'http://localhost', 'item/view', 'id=10'),
 (32, '2018-02-03 14:58:31', '127.0.0.1', 'http://localhost', 'item/index', ''),
-(33, '2018-02-04 08:08:17', '127.0.0.1', 'http://localhost', '', '');
+(33, '2018-02-04 08:08:17', '127.0.0.1', 'http://localhost', '', ''),
+(34, '2018-02-06 04:55:08', '127.0.0.1', 'http://mymart.local', 'item/view', 'id=13'),
+(35, '2018-02-06 04:55:11', '127.0.0.1', 'http://mymart.local', '', ''),
+(36, '2018-02-06 04:55:13', '127.0.0.1', 'http://mymart.local', '', '');
 
 -- --------------------------------------------------------
 
@@ -333,7 +337,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `statistic`
 --
 ALTER TABLE `statistic`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `user`
