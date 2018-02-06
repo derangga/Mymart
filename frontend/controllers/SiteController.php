@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use common\models\Item;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\data\ActiveDataProvider;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -78,10 +79,31 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $items = Item::find()->with('category')->all();
-        //var_dump(Yii::$app->request->hostInfo); die();
+        $model = Item::find()->with('category');
+
+        if(isset($_GET['Item']))
+        {
+            $search = \Yii::$app->request->get()['Item'];
+            $model->andFilterWhere([
+                'category_id' => $search['category_id']
+            ]);
+        }
+
+        $provider = new ActiveDataProvider([
+            'query' => $model,
+            'pagination' => [
+                'pageSize' => 6,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_ASC,
+                    'nama' => SORT_ASC,
+                ]
+            ],
+        ]);
+
         return $this->render('index',[
-            'items' => $items,
+            'provider' => $provider
         ]);
     }
 
